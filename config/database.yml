@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: <%= ENV['DATABASE_HOST'] || 'postgres_guild' %>
+  username: <%= ENV['DATABASE_USER'] || 'postgres' %>
+  password: <%= ENV['DATABASE_PASSWORD'] || 'postgres' %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: guild_development
+
+test:
+  <<: *default
+  database: guild_test
+
+production:
+  <<: *default
+  database: guild_production
+  username: <%= ENV['POSTGRES_USER'] || 'postgres' %>
+  password: <%= ENV['POSTGRES_PASSWORD'] || 'postgres' %>
+  host: <%= ENV['POSTGRES_HOST'] || 'postgres_guild' %>
